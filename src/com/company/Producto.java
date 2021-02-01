@@ -1,16 +1,27 @@
 package com.company;
 
 public class Producto {
+
     private String nombre;
     private String descripcion;
     private Double precioUnitario;
     private String seccion;
+    private Integer stock;
 
-    public Producto(String nombre, String descripcion, Double precioUnitario, String seccion) {
+    public Producto(String nombre, String descripcion, Double precioUnitario, String seccion, Integer stock) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
         this.seccion = seccion;
+        this.stock = stock;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public String getNombre() {
@@ -44,4 +55,5 @@ public class Producto {
     public void setSeccion(String seccion) {
         this.seccion = seccion;
     }
+
 }

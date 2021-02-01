@@ -8,20 +8,24 @@ public class Cliente<totalCompra> {
     private LocalDate fechaDeCumpleanios;
     private Carrito carrito;
 
-    public Cliente(String nombre, Boolean jubilado, LocalDate fechaDeCumpleanios) {
+    public Cliente(String nombre, Boolean jubilado, LocalDate fechaDeCumpleanios, Carrito carrito) {
         this.nombre = nombre;
         this.jubilado = jubilado;
         this.fechaDeCumpleanios = fechaDeCumpleanios;
+        this.carrito =carrito;
     }
 
     public void agregarProductoalCarrito(Producto producto, Integer cantidad){
         carrito.agregarProducto(producto, cantidad);
+        producto.setStock(producto.getStock()- cantidad);
+        //que pasa si el stock queda en negativo?
     }
 
     public void modificarCantidadDeUnProducto(Producto productoAModificar, Integer nuevaCantidad){
         for (int i = 0; i < carrito.getProductos().size(); i++) {
             if(carrito.getProductos().get(i) == productoAModificar){
                 carrito.getCantidades().set(i, nuevaCantidad);
+                productoAModificar.setStock(productoAModificar.getStock()+(carrito.getCantidades().get(i)-nuevaCantidad));
 
             }
         }
@@ -33,6 +37,8 @@ public class Cliente<totalCompra> {
         for(int i = 0; i< carrito.getProductos().size(); i ++){
             if(carrito.getProductos().get(i) == productoAEliminar){
                 carrito.getProductos().remove(i);
+                productoAEliminar.setStock(productoAEliminar.getStock() + carrito.getCantidades().get(i));
+                carrito.getCantidades().remove(i);
             }
         }
 
@@ -57,5 +63,9 @@ public class Cliente<totalCompra> {
 
         return totalCompra;
     }
+
+
+
+
 
 }
